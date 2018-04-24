@@ -1,10 +1,14 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import './assets/theme.css';
+import '../node_modules/bulma/css/bulma.css';
+import './assets/css/theme.css';
+
+import { HashRouter } from 'react-router-dom'
 import App from './components/App';
 
-render(
-  <App/>,
-  document.getElementById('app')
-);
+render((
+  <HashRouter>
+    <App/>
+  </HashRouter>
+), document.getElementById('app'));
