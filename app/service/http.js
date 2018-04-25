@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-const http = {
+export default {
   
-  request() {
+  request(method, url, params, data) {
     return axios.request({
       url,
       params,
       data,
       method: method.toLowerCase()
-    })
+    });
   }, 
 
   get(url, params = {}) {
@@ -29,8 +29,24 @@ const http = {
 
   init(baseUrl) {
     axios.defaults.baseURL = baseUrl;
+
+    //Request middleware
+    axios.interceptors.request.use((config) => {
+      console.debug('[HTTP] requesting', config);
+      return config;
+    });
+    /*, function (error) {
+      // Do something with request error
+      return Promise.reject(error);
+    });
+    */
+
+    //Response middleware
+    axios.interceptors.response.use(function (response) {
+      // Do something with response data
+      console.debug('[HTTP] receiving', response);
+      return response;
+    });
   }
 
 };
-
-export default http;

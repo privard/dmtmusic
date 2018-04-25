@@ -5,10 +5,13 @@ import '../node_modules/bulma/css/bulma.css';
 import './assets/css/theme.css';
 
 import { HashRouter } from 'react-router-dom'
-import App from './components/App';
+import AppContainer from './containers/AppContainer';
+import http from './service/http';
+
+http.init('/api');
 
 render((
   <HashRouter>
-    <App/>
+    <AppContainer />
   </HashRouter>
 ), document.getElementById('app'));
