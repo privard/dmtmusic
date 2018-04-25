@@ -1,10 +1,10 @@
-const path = require('path');
-const webpack = require('webpack');
+const path = require("path");
+const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: './app/index.js',
+  entry: "./app/index.js",
   output: {
     path: path.resolve(__dirname, 'dist'),
   },
@@ -44,7 +44,10 @@ module.exports = {
     })
   ],
   devServer: {
-    contentBase: './dist',
-    port: 3000
+    contentBase: "./dist",
+    port: 3000,
+    proxy: {
+      "/api": "http://localhost:5000/"
+    }
   }
 };
