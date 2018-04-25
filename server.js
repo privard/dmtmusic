@@ -149,7 +149,7 @@ SpotifyClientCredentials.authorize(SpotifyApplication.id, SpotifyApplication.sec
   });
 
   //Search artist
-  app.get('/api/artist/:id/albums', function(req, res) {
+  app.get('/api/artists/:id/albums', function(req, res) {
     const id = req.params.id;
     console.log('Get artist\'s albums', id);
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class ResultsView extends React.Component {
 
@@ -17,7 +18,9 @@ class ResultsView extends React.Component {
         <ul>
           {
             app.get('artists').map((artist) =>
-              <li key={artist.id}>{artist.name}</li>
+              <li key={artist.id}>
+                <Link to={('/artist/' + artist.id)}>{artist.name}</Link>
+              </li>
             )
           }
         </ul>

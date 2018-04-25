@@ -18,7 +18,7 @@ export default {
     return http.get(url);
   },
 
-  getAlbumTracks(artist) {
+  getAlbumTracks(id) {
     const url = Endpoint.albumTracks.replace('{id}', id);
     return http.get(url);
   }

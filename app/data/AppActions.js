@@ -33,13 +33,53 @@ const Actions = {
       return spotify.searchByArtist(artist)
         .then(({ data }) => {
           AppDispatcher.dispatch({
-            type: AppActionTypes.ALBUMS_LOADED,
+            type: AppActionTypes.ARTISTS_LOADED,
             payload: data.artists
           });
         })
         .catch((error) => {
           AppDispatcher.dispatch({
+            type: AppActionTypes.ARTISTS_LOAD_ERROR,
+            payload: {
+              error: error
+            }
+          });
+        })
+    });
+  },
+
+  getArtistAlbums(id) {
+    dispatchAction(() => {
+      return spotify.getArtistAlbums(id)
+        .then(({ data }) => {
+          AppDispatcher.dispatch({
+            type: AppActionTypes.ALBUMS_LOADED,
+            payload: data
+          });
+        })
+        .catch((error) => {
+          AppDispatcher.dispatch({
             type: AppActionTypes.ALBUMS_LOAD_ERROR,
+            payload: {
+              error: error
+            }
+          });
+        })
+    });
+  },
+
+  getAlbumTracks(id) {
+    dispatchAction(() => {
+      return spotify.getAlbumTracks(id)
+        .then(({ data }) => {
+          AppDispatcher.dispatch({
+            type: AppActionTypes.TRACKS_LOADED,
+            payload: data
+          });
+        })
+        .catch((error) => {
+          AppDispatcher.dispatch({
+            type: AppActionTypes.TRACKS_LOAD_ERROR,
             payload: {
               error: error
             }

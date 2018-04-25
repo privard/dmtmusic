@@ -6,10 +6,9 @@ import SearchBar from '../components/layout/SearchBar';
 import Container from '../components/layout/Container';
 
 import ResultsView from './ResultsView';
+import ArtistView from './ArtistView';
+import AlbumView from './AlbumView';
 
-import HomePage from '../components/page/HomePage';
-import ArtistPage from '../components/page/ArtistPage';
-import AlbumPage from '../components/page/AlbumPage';
 import NotFoundPage from '../components/page/NotFoundPage';
 
 class AppView extends React.Component {
@@ -49,8 +48,14 @@ class AppView extends React.Component {
             return <ResultsView {...routeProps} {...this.props} />;
           }} />
 
-          <Route exact path="/artist/:id" component={ArtistPage} />
-          <Route path="/album/:id" component={AlbumPage} />
+          <Route exact path="/artist/:id" render={(routeProps) => {
+            return <ArtistView {...routeProps} {...this.props} />;
+          }} />
+
+          <Route exact path="/album/:id" render={(routeProps) => {
+            return <AlbumView {...routeProps} {...this.props} />;
+          }} />
+
           <Route component={NotFoundPage} />
         </Switch>
       
@@ -60,6 +65,7 @@ class AppView extends React.Component {
 };
 
 /*
+<Route exact path="/artist/:id" component={ArtistPage} />
 <Route exact path="/" render={(routeProps) => {
   return (
     <SearchBar

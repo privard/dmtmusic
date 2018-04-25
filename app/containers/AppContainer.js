@@ -17,6 +17,8 @@ class AppContainer extends React.Component {
     return {
       app: AppStore.getState(),
       onSearchByArtist: AppActions.searchByArtist,
+      onGetArtistAlbums: AppActions.getArtistAlbums,
+      onGetAlbumTracks: AppActions.getAlbumTracks,
     };
   }
 
