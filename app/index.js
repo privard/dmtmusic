@@ -8,7 +8,9 @@ import { HashRouter } from 'react-router-dom'
 import AppContainer from './containers/AppContainer';
 import http from './service/http';
 
-http.init('/api');
+http.init({
+  baseUrl: '/api'
+});
 
 render((
   <HashRouter>

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { ENTER } from '../../util/key-code';
+
+const ENTER = 'Enter';
 
 class SearchBar extends React.Component {
   constructor(props) {

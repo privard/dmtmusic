@@ -27,8 +27,8 @@ export default {
     return this.request('delete', url, params, data)
   },
 
-  init(baseUrl) {
-    axios.defaults.baseURL = baseUrl;
+  init(config = {}) {
+    axios.defaults.baseURL = config.baseUrl;
 
     //Request middleware
     axios.interceptors.request.use((config) => {

@@ -6,7 +6,23 @@ class ResultsView extends React.Component {
 
   constructor(props) {
     super(props);
-    console.debug('ResultsView', props)
+  }
+
+  componentDidMount() {
+    const { match } = this.props;
+    this.searchArtists(match.params.artist);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { match } = nextProps;
+    if (nextProps.location !== this.props.location) {
+      this.searchArtists(match.params.artist);
+    }
+  }
+
+  searchArtists(artist) {
+    this.props.onSearchByArtist(artist);
+    console.debug('Search artist', artist);
   }
 
   render() {

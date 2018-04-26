@@ -2,14 +2,12 @@ import React from 'react';
 import classnames from 'classnames';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
-import SearchBar from '../components/layout/SearchBar';
-import Container from '../components/layout/Container';
+import SearchBar from '../components/SearchBar';
+import Container from '../components/Container';
 
 import ResultsView from './ResultsView';
 import ArtistView from './ArtistView';
 import AlbumView from './AlbumView';
-
-import NotFoundPage from '../components/page/NotFoundPage';
 
 class AppView extends React.Component {
   constructor(props) {
@@ -19,47 +17,55 @@ class AppView extends React.Component {
     this.onSearch = this.onSearch.bind(this);
     
     this.state = {
-      isSearching: false,
+      fireRedirect: false,
       search: ''
     }
   }
 
+  componentWillReceiveProps(newProps)	{
+    this.setState({
+      fireRedirect: false
+    });
+  }
+
   onSearch(value) {
-    /*this.setState({
-      isSearching: true,
+    this.setState({
+      fireRedirect: true,
       search: value
-    });*/
-    this.props.onSearchByArtist(value);
-    console.debug('Search artist', value);
+    });
   }
 
   render() {
+    const { app } = this.props;
+    const { fireRedirect } = this.state;
+    const { search } = this.state;
+
     return (
-    <div className="app">
-        
-        <SearchBar
-          isLoading={this.props.app.get('isLoading')}
-          onSubmit={this.onSearch}
-          placeholder="Search for an artist" />
+      <React.Fragment>
+        <div className="container">
+          <SearchBar
+            isLoading={app.get('isLoading')}
+            onSubmit={this.onSearch}
+            placeholder="Search for an artist" />
+          </div>
+        { fireRedirect && <Redirect push to={('/search/' + search)} />}
 
         <Switch>
+          <Container>
+            <Route exact path="/search/:artist" render={(routeProps) => {
+              return <ResultsView {...routeProps} {...this.props} />;
+            }} />
 
-          <Route exact path="/search/:artist" render={(routeProps) => {
-            return <ResultsView {...routeProps} {...this.props} />;
-          }} />
+            <Route exact path="/artist/:id" render={(routeProps) => {
+              return <ArtistView {...routeProps} {...this.props} />;
+            }} />
 
-          <Route exact path="/artist/:id" render={(routeProps) => {
-            return <ArtistView {...routeProps} {...this.props} />;
-          }} />
-
-          <Route exact path="/album/:id" render={(routeProps) => {
-            return <AlbumView {...routeProps} {...this.props} />;
-          }} />
-
-          <Route component={NotFoundPage} />
+            <Route exact path="/album/:id" render={(routeProps) => {
+              return <AlbumView {...routeProps} {...this.props} />;
+            }} />
+          </Container>
         </Switch>
-      
-    </div>
+    </React.Fragment>
     );
   }
 };
