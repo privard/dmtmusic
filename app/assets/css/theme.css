@@ -1,36 +1,127 @@
 html {
   height: 100%;
-  background-color: #000;
 }
 
 body {
   height: 100%;
-  margin: 0 auto;
-  max-width: 960px;
+  position: relative;
+  background: #f7f7fc;
 }
 
 .app {
+  margin: 0 auto;
+  padding: 0;
+
+  width: 960px;
   height: 100%;
-  /*
+
   display: flex;
   align-items: center;
   justify-content: center;
-  */
 }
 
-.app .is-centered {
-  
+.wrapper {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px 0 rgba(51,51,79,.07);
+}
+
+section {
+  min-height: calc(50vh - 6.25rem);
+  max-height: calc(100vh - 6.25rem);
+  overflow-y: auto;
+  padding: 1.5rem 2rem;
+  transition: max-height 0.25s ease-in;
+
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+
+  border-left: 1px solid #e6e6ff;
+  border-right: 1px solid #e6e6ff;
+  border-bottom: 1px solid #e6e6ff;
+}
+
+section.is-message {
+  padding: 5rem;
+}
+
+.search-bar .input {
+  border-color: #e6e6ff;
+}
+
+.search-bar .button.is-search {
+  color: #fff;
+  border-color: #e6e6ff;
+  padding: 0 2rem;
+  background: #6078ff;
+}
+
+.search-bar .input:focus, .search-bar .button:focus {
+  box-shadow: none;
+  border-color: #6078ff;
+}
+
+.cover {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px 0 rgba(51,51,79,.1);
+}
+
+.cover .image {
+  background-color: #6078ff;
+}
+
+.cover .details {
+  padding: 0.6rem 1rem;
+}
+
+.cover .name {
+  background-color: #fcfcff;
+}
+
+.cover .name .subtitle {
+  color: #7171a6;
+}
+
+.cover .released {
+  color: #b8b8d9;
+}
+
+.is-fullwidth {
+  width: 100%;
+}
+
+.button.is-emphazised {
+  margin: 0;
+  color: #fff;
+  background: #6078ff;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  display: inline-block;
+  border-bottom: 2px solid #3755ff;
+}
+
+.button.is-emphazised:hover {
+  background: #3755ff;
+  border-bottom: 2px solid #1437ff;
 }
 
 .search .input {
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
+  
 }
 
 .search .button {
+  background: #6078ff;
   border-bottom-right-radius: 0px;
 }
 
-.section {
-  background-color: #c3c3c3;
+.search .button:hover {
+  background: #3755ff;
 }

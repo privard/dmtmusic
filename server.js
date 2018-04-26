@@ -45,6 +45,7 @@ const SpotifyClient = {
   version: 'v1',
   endpoint: {
     search: '/search',
+    albums: '/albums/{id}',
     artistAlbums: '/artists/{id}/albums',
     albumTracks: '/albums/{id}/tracks'
   },
@@ -93,7 +94,26 @@ const SpotifyClient = {
   getArtistAlbums: function(token, id) {
     const url = this.endpoint.artistAlbums
       .replace('{id}', id) +
-      '?include_groups=album';
+      '?include_groups=album' +
+      '&market=US';
+
+    const options = this.getOptions(token, url);
+    console.log('Spotify request', options);
+    return new Promise((resolve, reject) => {
+      request.get(options, function(error, response, body) {
+        if (response.statusCode === 200) {
+          resolve(body);
+        } else {
+          reject(body);
+        }
+      });
+    });
+  },
+
+  //Get album
+  getAlbum: function(token, id) {
+    const url = this.endpoint.albums
+      .replace('{id}', id);
 
     const options = this.getOptions(token, url);
     console.log('Spotify request', options);
@@ -151,11 +171,25 @@ SpotifyClientCredentials.authorize(SpotifyApplication.id, SpotifyApplication.sec
   //Search artist
   app.get('/api/artists/:id/albums', function(req, res) {
     const id = req.params.id;
+    
     console.log('Get artist\'s albums', id);
 
     SpotifyClient.getArtistAlbums(token, id)
     .then((body) => {
-      res.send(body);
+      let promises = [];
+
+      body.items.forEach((album) => {
+        promises.push(SpotifyClient.getAlbum(token, album.id));
+      });
+
+      Promise.all(promises)
+      .then((albums) => {
+        res.send(albums);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      
     })
     .catch((error) => {
       console.log('Error', error);

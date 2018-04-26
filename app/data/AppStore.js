@@ -37,7 +37,7 @@ class AppStore extends ReduceStore {
 
       case AppActionTypes.ALBUMS_LOADED:
         return state.updateIn(['albums'], () => {
-          return Immutable.List(action.payload.items);
+          return Immutable.List(action.payload);
         });
 
       case AppActionTypes.TRACKS_LOADED:

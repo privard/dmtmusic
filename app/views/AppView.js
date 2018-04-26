@@ -41,17 +41,19 @@ class AppView extends React.Component {
     const { search } = this.state;
 
     return (
-      <React.Fragment>
-        <div className="container">
+    <Container>
+        
+        <header>
           <SearchBar
             isLoading={app.get('isLoading')}
             onSubmit={this.onSearch}
             placeholder="Search for an artist" />
-          </div>
+        </header>
+
         { fireRedirect && <Redirect push to={('/search/' + search)} />}
 
         <Switch>
-          <Container>
+          
             <Route exact path="/search/:artist" render={(routeProps) => {
               return <ResultsView {...routeProps} {...this.props} />;
             }} />
@@ -63,9 +65,9 @@ class AppView extends React.Component {
             <Route exact path="/album/:id" render={(routeProps) => {
               return <AlbumView {...routeProps} {...this.props} />;
             }} />
-          </Container>
+          
         </Switch>
-    </React.Fragment>
+    </Container>
     );
   }
 };

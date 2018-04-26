@@ -1,34 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const Cover = (props) => {
+  return (
+    <div className="image is-1by1">
+      {props.src &&
+        <img src={props.src} />
+      }
+    </div>
+  );
+};
+
 class ArtistCover extends React.Component {
   constructor(props) {
     super(props);
   }
 
+  getArtistImageSource(images) {
+    return (images.length > 0) ? images[0].url : null;
+  }
+
   render() {
+    const { artist } = this.props;
+    const image = this.getArtistImageSource(artist.images);
+
     return (
-      <article className="media">
-        <figure className="media-left">
-          <p className="image is-64x64">
-            <img src={this.props.image} />
-          </p>
-        </figure>
-        <div className="media-content">
-          <div className="content">
-            <p className="subtitle is-7">{this.props.name}</p>
-          </div>
+      <div className="cover artist">
+        <Cover src={image} />
+
+        <div className="details">
+          <h2 className="subtitle is-5">{artist.name}</h2>
         </div>
-        <div className="media-right">
-        </div>
-      </article>
+      </div>
     );
   }
 }
 
 ArtistCover.propTypes = {
-  name: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired
+  artist: PropTypes.shape({
+    name: PropTypes.string,
+    images: PropTypes.array
+  })
+  
 };
 
 export default ArtistCover;

@@ -8,9 +8,9 @@ class Container extends React.Component {
 
   render() {
     return (
-    <section className="section">
+    <div className="wrapper">
       {this.props.children}
-    </section>
+    </div>
     );
   }
 }
