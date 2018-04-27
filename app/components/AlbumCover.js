@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import TracksLoader from './TracksLoader';
 import AlbumTracks from './AlbumTracks';
 
 const Genres = (props) => {
@@ -20,10 +21,20 @@ const Cover = (props) => {
   );
 };
 
-
 class AlbumCover extends React.Component {
   constructor(props) {
     super(props);
+
+    this.onTracksLoaded = this.onTracksLoaded.bind(this);
+    this.onTracksLoadError = this.onTracksLoadError.bind(this);
+
+    this.state = {
+      tracks: {
+        hasError: false,
+        isLoaded: false,
+        items: [],
+      }
+    }
   }
 
   getAlbumImageSource(images) {
@@ -35,16 +46,45 @@ class AlbumCover extends React.Component {
     return genres.slice(0, -1);
   }
 
+  onTracksLoaded(tracks) {
+    this.setState({
+      tracks: {
+        isLoaded: true,
+        items: tracks.items
+      }
+    });
+  }
+
+  onTracksLoadError() {
+    this.setState({
+      tracks: {
+        error: true,
+        isLoaded: true,
+      }
+    });
+  }
+
   releaseDateToYear(releaseDate) {
     return new Date(releaseDate).getFullYear();
   }
 
   render() {
     const { album } = this.props;
+    const { tracks } = this.state;
     const image = this.getAlbumImageSource(album.images);
     const genres = this.getAlbumGenres(album.genres);
     const releaseDate = this.releaseDateToYear(album.release_date);
-    
+    const showTracks = (tracks.isLoaded);
+
+    const albumTracks = (showTracks) ? (
+      <AlbumTracks tracks={tracks.items} />
+    ) : (
+      <TracksLoader
+        onTracksLoaded={this.onTracksLoaded}
+        album={album}
+      />
+    );
+
     return (
     <div className="cover album">
       <Cover src={image} />
@@ -63,7 +103,8 @@ class AlbumCover extends React.Component {
           </div>
         </nav>
       </div>
-      <AlbumTracks album={album} />
+
+      {albumTracks}
     </div>
     );
   }
