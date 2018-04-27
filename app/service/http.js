@@ -35,15 +35,9 @@ export default {
       console.debug('[HTTP] requesting', config);
       return config;
     });
-    /*, function (error) {
-      // Do something with request error
-      return Promise.reject(error);
-    });
-    */
 
     //Response middleware
     axios.interceptors.response.use(function (response) {
-      // Do something with response data
       console.debug('[HTTP] receiving', response);
       return response;
     });
