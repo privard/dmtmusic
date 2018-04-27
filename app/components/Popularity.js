@@ -7,14 +7,25 @@ class Popularity extends React.Component {
     super(props);
   }
 
+  getScore() {
+    const { percentage } = this.props;
+    const { total } = this.props;
+
+    return (total * percentage);
+  }
+
   getStars() {
     const { total } = this.props;
+    const score = this.getScore();
     const stars = [];
 
-    for (let i = 0; i < total; i++) {
+    for (let i = 1; i <= total; i++) {
+      const isFull = score >= i;
+      const isHalf = (score >= (i - 0.5) && !isFull);
+
       stars.push({
-        isFull: false,
-        isHalf: false
+        isFull: isFull,
+        isHalf: isHalf
       });
     }
 
@@ -31,7 +42,12 @@ class Popularity extends React.Component {
         stars.map((star, i) =>
           <div key={i} className="level-item">
             <span className="icon is-medium is-left">
-              <span className="ion-ionic ion-star"></span>
+              <span className={classnames(
+                  'ion-ionic',
+                  { 'ion-star': star.isFull },
+                  { 'ion-ios-star-half': star.isHalf },
+                  { 'ion-ios-star-outline': (!star.isFull && !star.isHalf) },
+              )}></span>
             </span>
           </div>
         )
@@ -42,11 +58,12 @@ class Popularity extends React.Component {
 }
 
 Popularity.defaultProps = {
+  percentage: 0,
   total: 5
 };
 
 Popularity.propTypes = {
-  score:  PropTypes.number,
+  percentage:  PropTypes.number,
   total: PropTypes.number
 };
 

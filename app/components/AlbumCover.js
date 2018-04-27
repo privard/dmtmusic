@@ -65,6 +65,10 @@ class AlbumCover extends React.Component {
     });
   }
 
+  calcPopularityPercentage(popularity) {
+    return (popularity / 100);
+  }
+
   releaseDateToYear(releaseDate) {
     return new Date(releaseDate).getFullYear();
   }
@@ -97,7 +101,7 @@ class AlbumCover extends React.Component {
         
         <nav className="level">
           <div className="level-left">
-            <Popularity />
+            <Popularity percentage={this.calcPopularityPercentage(album.popularity)} />
           </div>
           <div className="level-right">
             <p className="released has-text-centered">{releaseDate}</p>
