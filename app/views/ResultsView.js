@@ -82,8 +82,8 @@ class ResultsView extends React.Component {
 
   render() {
     const { app } = this.props;
-    const isLoading = app.get('isLoading');
     const { newSearch } = this.state;
+    const isLoading = app.get('isLoading');
     const artists = this.getArtists();
     const total = artists.get('total');
     const isEmpty = total === 0;

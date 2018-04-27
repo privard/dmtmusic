@@ -32,6 +32,12 @@ class ArtistView extends React.Component {
     return albums.sort((a, b) => new Date(a.release_date) - new Date(b.release_date));
   }
 
+  getArtistName() {
+    const { app } = this.props;
+    const albums = app.get('albums');
+    return (albums.size > 0) ? albums.get(0).artists[0].name : '';
+  }
+
   render() {
     const { app } = this.props;
     const isLoading = app.get('isLoading');
@@ -63,7 +69,7 @@ class ArtistView extends React.Component {
 
     return (
       <Section>
-        <h1 className="title is-3">Albums</h1>
+        <h1 className="title is-3">{this.getArtistName()}</h1>
         <div className="columns is-multiline">
           { albumCovers }
         </div>
