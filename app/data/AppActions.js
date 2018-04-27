@@ -2,12 +2,6 @@ import AppDispatcher from './AppDispatcher';
 import AppActionTypes from './AppActionTypes';
 import spotify from '../api/spotify';
 
-const cache = {
-  artists: [],
-  albums: [],
-  tracks: []
-};
-
 const dispatchLoading = (isLoading) => {
   AppDispatcher.dispatch({
     type: AppActionTypes.SET_LOADING,

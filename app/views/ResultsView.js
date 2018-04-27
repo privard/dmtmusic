@@ -24,14 +24,21 @@ class ResultsView extends React.Component {
   }
 
   searchArtists(artist) {
-    this.props.onSearchByArtist(artist);
     console.debug('Search artist', artist);
+    this.props.onSearchByArtist(artist);
+  }
+
+  getArtists() {
+    const { app } = this.props;
+    return app.get('artists');
   }
 
   render() {
     const { app } = this.props;
     const isLoading = app.get('isLoading');
-    const isEmpty = app.get('artists').size === 0;
+    const artists = this.getArtists();
+    const isEmpty = artists.size === 0;
+    
 
     const message = isLoading ? (
       <Message message="Searching for artists..." />
@@ -39,11 +46,11 @@ class ResultsView extends React.Component {
       <Message message="No artist found :(" />
     );
 
-    const artistCovers = app.get('artists').map((artist) => {
+    const artistCovers = artists.get('items').map((artist) => {
       return (
-        <div key={artist.id} className="column is-one-third">
-          <Link to={('/artist/' + artist.id)}>
-            <ArtistCover artist={artist} name={artist.name} image={(artist.images.length) ? artist.images[0].url : null} />
+        <div key={artist.get('id')} className="column is-one-third">
+          <Link to={('/artist/' + artist.get('id'))}>
+            <ArtistCover artist={artist} />
           </Link>
         </div>
       );
@@ -59,12 +66,22 @@ class ResultsView extends React.Component {
 
     return (
       <Section>
-        <h1 className="title is-3">About { app.get('artists').size } artists</h1>
+        <h1 className="title is-3">About { artists.get('total') } artists</h1>
         <div className="columns is-multiline">
-          { artistCovers }
+        {
+          artists.get('items').map((artist) =>
+            <div key={artist.get('id')} className="column is-one-third">
+              <Link to={('/artist/' + artist.get('id'))}>
+                <ArtistCover artist={artist} />
+              </Link>
+            </div>
+          )
+        }
         </div>
       </Section>
     );
+    
+    return null;
   }
   
 }

@@ -16,9 +16,11 @@ class AppStore extends ReduceStore {
   getInitialState() {
     return Immutable.fromJS({
       isLoading: false,
-      artists: [],
-      albums: [],
-      tracks: []
+      artists: {
+        items: [],
+        total: 0,
+      },
+      albums: []
     });
   }
 
@@ -29,7 +31,7 @@ class AppStore extends ReduceStore {
 
       case AppActionTypes.ARTISTS_LOADED:
         return state.updateIn(['artists'], () => {
-          return Immutable.List(action.payload.items);
+          return Immutable.fromJS(action.payload);
         });
 
       case AppActionTypes.ARTISTS_LOAD_ERROR:
@@ -38,11 +40,6 @@ class AppStore extends ReduceStore {
       case AppActionTypes.ALBUMS_LOADED:
         return state.updateIn(['albums'], () => {
           return Immutable.List(action.payload);
-        });
-
-      case AppActionTypes.TRACKS_LOADED:
-        return state.updateIn(['tracks'], () => {
-          return Immutable.List(action.payload.items);
         });
 
       default:
