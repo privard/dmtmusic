@@ -16,9 +16,14 @@ class ResultsView extends React.Component {
     this.fetchMoreArtists = this.fetchMoreArtists.bind(this);
 
     this.state = {
-      isLoading: false,
+      newSearch: true,
       search: ''
     };
+  }
+
+  getArtists() {
+    const { app } = this.props;
+    return app.get('artists');
   }
 
   componentDidMount() {
@@ -30,7 +35,6 @@ class ResultsView extends React.Component {
     const { match } = nextProps;
 
     if (nextProps.location !== this.props.location) {
-      
       this.searchArtists(match.params.artist);
     }
   }
@@ -38,19 +42,19 @@ class ResultsView extends React.Component {
   searchArtists(artist) {
     console.debug('Search artist', artist);
     this.setState({
-      search: artist
+      search: artist,
+      newSearch: true
     });
     this.props.onSearchByArtist(artist, SEARCH_LIMIT, 0);
-  }
-
-  getArtists() {
-    const { app } = this.props;
-    return app.get('artists');
   }
 
   fetchMoreArtists() {
     const { search } = this.state;
     const offset = this.getArtists().get('offset') + SEARCH_LIMIT;
+
+    this.setState({
+      newSearch: false
+    });
     this.props.onSearchMoreByArtist(search, SEARCH_LIMIT, offset);
   }
 
@@ -79,9 +83,11 @@ class ResultsView extends React.Component {
   render() {
     const { app } = this.props;
     const isLoading = app.get('isLoading');
+    const { newSearch } = this.state;
     const artists = this.getArtists();
-    const isEmpty = artists.size === 0;
     const total = artists.get('total');
+    const isEmpty = total === 0;
+    
 
     const message = (isLoading) ? (
       <Message message="Searching for artists..." />
@@ -89,10 +95,16 @@ class ResultsView extends React.Component {
       <Message message="No artist found :(" />
     );
 
-    if ((isLoading && !total) || isEmpty) {
+    if ((isLoading && newSearch) || isEmpty) {
       return (
         <Section isMessage={true}>
-          {message}
+          {
+            (isLoading) ? (
+              <Message message="Searching for artists..." />
+            ) : (
+              <Message message="No artist found :(" />
+            )
+          }
         </Section>
       );
     }

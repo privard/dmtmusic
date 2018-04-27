@@ -63,6 +63,7 @@ section.is-message .title {
 }
 
 .search-bar .button.is-search {
+  border: 0;
   padding: 0 2rem;
   color: #fff;
   border-color: #e6e6ff;
