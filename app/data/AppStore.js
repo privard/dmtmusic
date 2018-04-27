@@ -18,6 +18,8 @@ class AppStore extends ReduceStore {
       isLoading: false,
       artists: {
         items: [],
+        limit: 21,
+        offset: 0,
         total: 0,
       },
       albums: []
@@ -32,6 +34,17 @@ class AppStore extends ReduceStore {
       case AppActionTypes.ARTISTS_LOADED:
         return state.updateIn(['artists'], () => {
           return Immutable.fromJS(action.payload);
+        });
+
+      case AppActionTypes.ARTISTS_MORE_LOADED:
+        return state
+          .updateIn(['artists'] , (list) => list.set('offset', action.payload.offset))
+          .updateIn(['artists', 'items'], (list) => {
+          action.payload.items.forEach((item) => {
+            list = list.push(new Immutable.Map(item));
+          });
+
+          return list;
         });
 
       case AppActionTypes.ARTISTS_LOAD_ERROR:

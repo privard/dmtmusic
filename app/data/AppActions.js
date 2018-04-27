@@ -22,12 +22,32 @@ const dispatchAction = (promiseCb) => {
 
 const Actions = {
 
-  searchByArtist(artist) {
+  searchByArtist(artist, offset, limit) {
     dispatchAction(() => {
-      return spotify.searchByArtist(artist)
+      return spotify.searchByArtist(artist, offset, limit)
         .then(({ data }) => {
           AppDispatcher.dispatch({
             type: AppActionTypes.ARTISTS_LOADED,
+            payload: data.artists
+          });
+        })
+        .catch((error) => {
+          AppDispatcher.dispatch({
+            type: AppActionTypes.ARTISTS_LOAD_ERROR,
+            payload: {
+              error: error
+            }
+          });
+        })
+    });
+  },
+
+  searchMoreByArtist(artist, offset, limit) {
+    dispatchAction(() => {
+      return spotify.searchByArtist(artist, offset, limit)
+        .then(({ data }) => {
+          AppDispatcher.dispatch({
+            type: AppActionTypes.ARTISTS_MORE_LOADED,
             payload: data.artists
           });
         })

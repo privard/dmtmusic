@@ -146,6 +146,7 @@ section.is-message .title {
 */
 .button.is-emphazised {
   margin: 0;
+  border: 0;
   color: #fff;
   background: #6078ff;
   border-top-left-radius: 0px;

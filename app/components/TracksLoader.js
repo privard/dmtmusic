@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import spotify from '../api/spotify';
 
-
 class TracksLoader extends React.Component {
   constructor(props) {
     super(props);

@@ -8,8 +8,12 @@ const Endpoint = {
 
 export default {
 
-  searchByArtist(artist) {
-    const url = Endpoint.searchByArtist.replace('{artist}', encodeURI(artist));
+  searchByArtist(artist, limit, offset) {
+    const url = Endpoint.searchByArtist
+      .replace('{artist}', encodeURI(artist)) +
+      '?limit=' + limit +
+      '&offset=' + offset;
+
     return http.get(url);
   },
 
