@@ -51,28 +51,26 @@ class SearchBar extends React.Component {
     return (
       <div className="search-bar">
         <form onSubmit={this.onSubmit}>
-          <div className="search">
-            <div className="field has-addons">
-              <div className={controlClasses}>
-                  <input 
-                    type="text"
-                    className="input is-large"
-                    value={this.state.value}
-                    ref={el => this.input = el}
-                    onChange={this.onChange}
-                    onKeyPress={e => this.onKeyPress(e)} 
-                    placeholder={this.props.placeholder} />
-                  
-                  <span className="icon is-large is-left">
-                    <span className="ion-ionic ion-search"></span>
-                  </span>
-              </div>
-              <div className="control">
-                <input
-                  type="submit" 
-                  className="button is-search is-large"
-                  value="Search" />
-              </div>
+          <div className="field has-addons">
+            <div className={controlClasses}>
+                <input 
+                  type="text"
+                  className="input is-large"
+                  value={this.state.value}
+                  ref={el => this.input = el}
+                  onChange={this.onChange}
+                  onKeyPress={e => this.onKeyPress(e)} 
+                  placeholder={this.props.placeholder} />
+                
+                <span className="icon is-large is-left">
+                  <span className="ion-ionic ion-search"></span>
+                </span>
+            </div>
+            <div className="control">
+              <input
+                type="submit" 
+                className="button is-search is-large"
+                value="Search" />
             </div>
           </div>
         </form>

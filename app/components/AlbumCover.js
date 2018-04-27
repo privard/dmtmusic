@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TracksLoader from './TracksLoader';
 import AlbumTracks from './AlbumTracks';
+import Popularity from './Popularity';
 
 const Genres = (props) => {
   if (props.genres) {
@@ -96,7 +97,7 @@ class AlbumCover extends React.Component {
         
         <nav className="level">
           <div className="level-left">
-            Popularity
+            <Popularity />
           </div>
           <div className="level-right">
             <p className="released has-text-centered">{releaseDate}</p>

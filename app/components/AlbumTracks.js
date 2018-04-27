@@ -56,7 +56,7 @@ class AlbumTracks extends React.Component {
       return (
         <React.Fragment key={i} >
           {(discs.length > 1) &&
-            <div class="disc has-text-centered">
+            <div className="disc has-text-centered">
               Disc {i + 1}
             </div>
           }

@@ -8,13 +8,14 @@ body {
   background: #f7f7fc;
 }
 
+/*
+  Layout
+*/
 .app {
   margin: 0 auto;
   padding: 0;
-
   width: 960px;
   height: 100%;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,6 +28,9 @@ body {
   box-shadow: 0 2px 5px 0 rgba(51,51,79,.07);
 }
 
+/*
+  Section
+*/
 section {
   max-height: calc(100vh - 6.25rem);
   overflow-y: auto;
@@ -45,14 +49,24 @@ section.is-message {
   padding: 5rem;
 }
 
+section.is-message .title {
+  color: #b8b8d9;
+}
+
+/*
+  Search bar
+*/
 .search-bar .input {
   border-color: #e6e6ff;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
 .search-bar .button.is-search {
+  padding: 0 2rem;
   color: #fff;
   border-color: #e6e6ff;
-  padding: 0 2rem;
+  border-bottom-right-radius: 0px;
   background: #6078ff;
 }
 
@@ -61,9 +75,12 @@ section.is-message {
   border-color: #6078ff;
 }
 
+/*
+  Artist/Album Cover
+*/
 .cover {
-  position: relative;
   width: 100%;
+  position: relative;
   overflow: hidden;
   border-radius: 3px;
   box-shadow: 0 2px 5px 0 rgba(51,51,79,.1);
@@ -103,10 +120,30 @@ section.is-message {
   border-bottom: 2px solid #3755ff;
 }
 
+/*
+  Popularity
+*/
+.popularity {
+  display: flex;
+  flex-direction: row;
+}
+
+.popularity .icon {
+  font-weight: bold;
+  font-size: 2.5rem;
+  color: #3755ff;
+}
+
+/*
+  Helper
+*/
 .is-fullwidth {
   width: 100%;
 }
 
+/*
+  Emphasized button
+*/
 .button.is-emphazised {
   margin: 0;
   color: #fff;
@@ -122,19 +159,4 @@ section.is-message {
 .button.is-emphazised:hover {
   background: #3755ff;
   border-bottom: 2px solid #1437ff;
-}
-
-.search .input {
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-  
-}
-
-.search .button {
-  background: #6078ff;
-  border-bottom-right-radius: 0px;
-}
-
-.search .button:hover {
-  background: #3755ff;
 }

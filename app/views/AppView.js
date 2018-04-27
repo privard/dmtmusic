@@ -13,7 +13,6 @@ class AppView extends React.Component {
   constructor(props) {
     super(props);
     
-    console.debug('Application', this.props);
     this.onSearch = this.onSearch.bind(this);
     
     this.state = {
@@ -29,10 +28,12 @@ class AppView extends React.Component {
   }
 
   onSearch(value) {
-    this.setState({
-      fireRedirect: true,
-      search: value
-    });
+    if (value !== '') {
+      this.setState({
+        fireRedirect: true,
+        search: value
+      });
+    }
   }
 
   render() {
@@ -42,7 +43,6 @@ class AppView extends React.Component {
 
     return (
     <Container>
-        
         <header>
           <SearchBar
             isLoading={app.get('isLoading')}
@@ -53,47 +53,21 @@ class AppView extends React.Component {
         { fireRedirect && <Redirect push to={('/search/' + search)} />}
 
         <Switch>
-          
-            <Route exact path="/search/:artist" render={(routeProps) => {
-              return <ResultsView {...routeProps} {...this.props} />;
-            }} />
+          <Route exact path="/search/:artist" render={(routeProps) => {
+            return <ResultsView {...routeProps} {...this.props} />;
+          }} />
 
-            <Route exact path="/artist/:id" render={(routeProps) => {
-              return <ArtistView {...routeProps} {...this.props} />;
-            }} />
+          <Route exact path="/artist/:id" render={(routeProps) => {
+            return <ArtistView {...routeProps} {...this.props} />;
+          }} />
 
-            <Route exact path="/album/:id" render={(routeProps) => {
-              return <AlbumView {...routeProps} {...this.props} />;
-            }} />
-          
+          <Route exact path="/album/:id" render={(routeProps) => {
+            return <AlbumView {...routeProps} {...this.props} />;
+          }} />
         </Switch>
     </Container>
     );
   }
 };
-
-/*
-<Route exact path="/artist/:id" component={ArtistPage} />
-<Route exact path="/" render={(routeProps) => {
-  return (
-    <SearchBar
-      isLoading={this.props.app.isLoading}
-      onSubmit={this.onSearch}
-      placeholder="Search for an artist" />
-  );
-  
-  if (isSearching) {
-    return <Redirect to={('/search/' + search)} />
-  } else {
-    return (
-      <SearchBar
-        isLoading={this.props.app.isLoading}
-        onSubmit={this.onSearch}
-        placeholder="Search for an artist" />
-    );
-  }
-  
-}} />
-*/
 
 export default AppView;
